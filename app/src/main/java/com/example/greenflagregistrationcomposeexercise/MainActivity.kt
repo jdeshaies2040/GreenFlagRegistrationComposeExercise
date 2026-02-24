@@ -108,13 +108,15 @@ fun GreenFlagScreenOne(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Button to navigate
-        ImageBackgroundButton(
+        ScreenOneImageBackgroundButton(
             onClick = onNavigateToTwo,
             buttonText = "Create an account",
             modifier = Modifier.padding(bottom = 24.dp)
         )
     }
 }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -157,74 +159,84 @@ fun GreenFlagScreenTwo(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Email address",
-                color = Color.White,
-                fontSize = 32.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            TextField(
-                value = "",
-                onValueChange = {  },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Email address",
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                TextField(
+                    value = "",
+                    onValueChange = {  },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
 
-            Text(
-                text = "Create password",
-                color = Color.White,
-                fontSize = 32.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 32.dp)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            @Suppress("DEPRECATION")
-            TextField(
-                label = { Text ("See criteria below")},
-                value = "",
-                onValueChange = {  },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
+                Text(
+                    text = "Create password",
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 32.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                @Suppress("DEPRECATION")
+                TextField(
+                    label = { Text ("See criteria below")},
+                    value = "",
+                    onValueChange = {  },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
 
-            Text(
-                text = "Repeat password",
-                color = Color.White,
-                fontSize = 32.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 32.dp)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            @Suppress("DEPRECATION")
-            TextField(
-                value = "",
-                onValueChange = {  },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
+                Text(
+                    text = "Repeat password",
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 32.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                @Suppress("DEPRECATION")
+                TextField(
+                    value = "",
+                    onValueChange = {  },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
 
-            Text(
-                text = "Your password should have a minimum of 8 characters and contain at least one number, one uppercase and one lower case letter. You can use special characters.",
-                color = Color(0xFFADD8E6),
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp)
-                    .padding(16.dp)
+                Text(
+                    text = "Your password should have a minimum of 8 characters and contain at least one number, one uppercase and one lower case letter. You can use special characters.",
+                    color = Color(0xFFADD8E6),
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp)
+                        .padding(16.dp)
+                )
+            }
+            ScreenTwoImageBackgroundButton(
+                onClick = null,
+                buttonText = "Next",
+                modifier = Modifier.padding(bottom = 24.dp)
             )
         }
     }
@@ -280,7 +292,7 @@ fun MyLazyColumn(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ImageBackgroundButton(
+fun ScreenOneImageBackgroundButton(
     onClick: () -> Unit,
     buttonText: String,
     modifier: Modifier = Modifier
@@ -306,8 +318,47 @@ fun ImageBackgroundButton(
         ) {
             Text(
                 text = buttonText,
-                fontSize = 24.sp
+                fontSize = 24.sp,
+                color = Color.Black
             )
+        }
+    }
+}
+
+@Composable
+fun ScreenTwoImageBackgroundButton(
+    onClick: (() -> Unit)?,
+    buttonText: String,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.gradient_button_background),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxWidth().height(70.dp)
+        )
+
+        Text(
+            text = buttonText,
+            fontSize = 24.sp,
+            color = Color.Black
+        )
+
+        if (onClick != null) {
+            Button(
+                onClick = onClick,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Black
+                ),
+                modifier = Modifier.fillMaxWidth().height(70.dp)
+            ) {
+                // Empty since we show the text in a separate Text composable to control color consistently
+            }
         }
     }
 }
