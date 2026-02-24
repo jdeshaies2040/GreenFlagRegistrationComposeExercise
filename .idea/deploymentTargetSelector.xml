@@ -17,7 +17,7 @@
       <SelectionState runConfigName="ImageBackgroundButton">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="MyScreen">
+      <SelectionState runConfigName="ScreenTwoPreview">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
